@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 /*$.validator.setDefaults({
   debug: true,
   success: "valid"
@@ -25,14 +27,7 @@ $("#myform").validate({
   }
 
 });
+*/
 
-$('#myform').submit(function(e){
-	var formData = $(this).serializeArray();
-	$.ajax({
-		method: "post",
-		data: formData,
-		url: "/todo",
-		success: function(d){
-		}
-	});
-});*/
+
+});

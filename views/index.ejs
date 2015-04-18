@@ -14,15 +14,15 @@
     <form id="myform" method="POST" action="/todo" class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
     	<div class="form-group">
     		<label class="control-label" for="title">Title</label>
-    		<input type="text" id="title" minlength="2" class="form-control" name="title" >
+    		<input type="text" id="title" minlength="2" class="form-control" name="title" value="<%= itemProps.title %>">
     	</div>
     	<div class="form-group">
     		<label class="control-label" for="description">Description</label>
-    		<textarea id="description" minlength="2" class="form-control" name="description"></textarea>
+    		<textarea id="description" minlength="2" class="form-control" name="description"><%= itemProps.description %></textarea>
     	</div>
     	<div class="form-group">
     		<label class="control-label" for="priority">Choose Priority Level</label>
-    		<select name="priority" id="priority" class="form-control">
+    		<select name="priority" id="priority" class="form-control" value="<%= itemProps.priority %>">
     			<option value="1">Red (highest priority)</option>
     			<option value="2">Orange</option>
     			<option value="3">Yellow</option>
@@ -30,23 +30,24 @@
     			<option value="5">Blue (lowest priority)</option>
     		</select>
     	</div>
-			<div class="form-group">
-				<label class="control-label" for="due_date" >Due Date</label>
-				<input type="date" class="form-control" name="due_date" id="due_date">
-			</div>
-			<div class="checkbox">
-				<label class="control-label" for="complete">
-					<input type="checkbox" id="complete" name="complete">Check for Complete
-				</label>
-			</div>
-			<div class="form-group">
-				<input type="submit" class="btn btn-default" id="button" value="Submit" name="submit">
-			</div>
+		<div class="form-group">
+			<label class="control-label" for="due_date"> Due Date</label>
+			<input type="date" class="form-control" name="due_date" id="due_date" value="<%= itemProps.due_date %>">
+		</div>
+		<div class="checkbox">
+			<label class="control-label" for="complete">
+				<input type="checkbox" id="complete" name="complete"  value="<%= itemProps.complete %>">Check for Complete
+			</label>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-default" id="button" value="Submit" name="submit">
+		</div>
     </form>
     </div>
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
     <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-    <script src="javascripts/main.js"></script>
+    <script src="javascripts/main.js"></script> -->
   </body>
 </html>

@@ -16,19 +16,27 @@
 					<th>Description</th>
 					<th>Due Date</th>
 					<th>Priority</th>
+					<th>Complete</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			<% titles.forEach(function(title){ %>
-			<tr>
+			<tr class="<%= title._id %>">
 				<td><%= title.title %></td>
 				<td><%= title.description %></td>
 				<td><%= title.due_date %></td>
 				<td><%= title.priority %></td>
+				<td><input type="checkbox" value="<%= title.complete %>"></td>
+				<td><button id="<%= title._id %>" type="submit" class="btn editButton" name="complete">Edit</button></td>
+				<td><button id="<%= title._id %>" type="submit" class="btn deleteButton" name="complete">Delete</button></td>
 			</tr>
 			<% }) %>
 			</tbody>
 		</table>
 	</div>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="javascripts/todohandler.js"></script>
 </body>
 </html>

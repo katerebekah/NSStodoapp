@@ -22,15 +22,47 @@ var todoSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  description: String,
-  title: String,
+  description: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
   priority: Number,
-  complete: Boolean
+  complete: {
+    type: Boolean,
+    default: false
+  }
 });
 
 var Todo = mongoose.model('Todo', todoSchema);
 
-//get todo page
+//get todo page and updated item
+router.get('/:id', function(req, res) {
+  console.log(req.params.id);
+  //to edit an item
+  return Todo.find({
+      _id: req.params.id
+    },
+    function(err, item) {
+      var thisItem = item[0];
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('index', {
+          title: "Kate's Awesome Page",
+          header: "The Most Wonderful Page",
+          description: "the page dedicated to javscript templating",
+          itemProps: thisItem
+        });
+      }
+    });
+});
+
+
+  //this is to call all the items on initial page render
 router.get('/', function(req, res, next) {
   return Todo.find(function(err, titles) {
     if (!err) {
@@ -38,10 +70,8 @@ router.get('/', function(req, res, next) {
         greeting: "Howdy!",
         titles: titles
       });
-      console.log(titles);
-    } else {
-      return console.log(err);
     }
+    console.log(titles);
   });
 });
 
@@ -51,17 +81,38 @@ router.post('/', function(req, res) {
     due_date: req.body.due_date,
     title: req.body.title,
     description: req.body.description,
-    priority: req.body.priority
-      //complete: false
+    priority: req.body.priority,
+    complete: req.body.complete,
+    //complete: false
   }).save(function(err, title) {
     if (err) {
-      return console.error(err);
+      res.render('error', {
+        error: {
+          status: 500,
+          stack: JSON.stringify(err.errors)
+        },
+        message: "You are a failure. Read the directions."
+      });
     }
-    console.log(title);
+    res.redirect('todo');
   });
-  
-  res.redirect('todo');
+
 });
 
+
+
+router.delete('/', function(req, res) {
+  console.log(req.body.title_id);
+  Todo.remove({
+      _id: req.body.title_id
+    },
+    function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send('SUCCESS');
+      }
+    });
+});
 
 module.exports = router;
